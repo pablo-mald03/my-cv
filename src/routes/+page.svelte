@@ -1,9 +1,45 @@
 <script>
+	import { fade } from 'svelte/transition';
 	import miFoto from '$lib/assets/ProfileMePablo.png';
 
 	let name = 'Pablo';
 	let role = 'Estudiante de Ingenieria en Ciencias y Sistemas';
 	let location = 'Guatemala';
+
+	let misProyectos = $state([
+		{
+			titulo: 'App Creador de Formularios',
+			descripcion:
+				"Aplicación Android que permite crear formularios desde un lenguaje de alto nivel. Aplicando principios de compiladores. Y conexion a API'S en servidores remotos",
+			tipo: 'mobile',
+			imagenes: [
+                '/proyectos/PkmPic0.jpeg',
+				'/proyectos/PkmPic1.jpeg',
+				'/proyectos/PkmPic2.jpeg',
+				'/proyectos/PkmPic3.jpeg',
+				'/proyectos/PkmPic4.jpeg',
+				'/proyectos/PkmPic5.jpeg'
+			],
+			repo: 'https://github.com/pablo-mald03/Proyecto-No1-Compi-1/',
+			index: 0
+		},
+		{
+			titulo: 'Sistema de Gestion de produtos',
+			descripcion: 'PENDIENTE',
+			tipo: 'desktop',
+			imagenes: ['/proyectos/desk1.jpg', '/proyectos/desk2.jpg'],
+			repo: 'https://github.com...',
+			index: 0
+		}
+	]);
+
+	const next = (p) => {
+		p.index = (p.index + 1) % p.imagenes.length;
+	};
+
+	const prev = (p) => {
+		p.index = (p.index - 1 + p.imagenes.length) % p.imagenes.length;
+	};
 </script>
 
 <section id="sobre-mi" class="about">
@@ -32,6 +68,8 @@
 
 <section id="experiencia" class="cv-info">
 	<div class="section-container">
+
+        <h2 class="section-title">Mis areas experimentadas</h2>
 		<div class="cv-grid">
 			<div class="cv-card">
 				<h3>Educación</h3>
@@ -55,7 +93,7 @@
 					<span>C++</span>
 					<span>JavaScript</span>
 					<span>MySQL</span>
-                    <span>Qt Framework</span>
+					<span>Qt Framework</span>
 				</div>
 			</div>
 
@@ -71,11 +109,71 @@
 	</div>
 </section>
 
+<section id="proyectos" class="projects-section">
+	<div class="section-container">
+		<h2 class="section-title">Proyectos Realizados</h2>
+		<div class="projects-column">
+			{#each misProyectos as proyecto}
+				<div class="project-card">
+					<div class="carousel-master {proyecto.tipo}">
+						<button class="nav-btn prev" onclick={() => prev(proyecto)}>‹</button>
+
+						<div class="image-container">
+							{#each [proyecto.imagenes[proyecto.index]] as currentImg (currentImg)}
+								<img src={currentImg} alt="Preview" transition:fade={{ duration: 300 }} />
+							{/each}
+						</div>
+
+						<button class="nav-btn next" onclick={() => next(proyecto)}>›</button>
+
+						<div class="dots">
+							{#each proyecto.imagenes as _, i}
+								<div class="dot" class:active={i === proyecto.index}></div>
+							{/each}
+						</div>
+					</div>
+
+					<div class="project-info">
+						<h3>{proyecto.titulo}</h3>
+						<p>{proyecto.descripcion}</p>
+						<a href={proyecto.repo} target="_blank" class="btn-github">Ver GitHub</a>
+					</div>
+				</div>
+			{/each}
+		</div>
+	</div>
+</section>
+
 <style>
 	:global(body) {
 		background-color: var(--bg-color);
 		color: var(--text-color);
 	}
+
+    .section-title {
+        font-family: var(--font-mono);
+        font-size: 2.2rem;
+        color: var(--accent); 
+        text-align: center;
+        margin-bottom: 4rem; 
+        position: relative;
+        text-transform: uppercase;
+    }
+
+    .section-title::after {
+        content: '';
+        display: block;
+        width: 60px;
+        height: 4px;
+        background: var(--accent);
+        margin: 1rem auto 0;
+        border-radius: 2px;
+    }
+
+    .projects-section {
+        padding: 8rem 0; 
+        background-color: #0f172a;
+    }
 
 	.section-container {
 		max-width: 1100px;
@@ -211,5 +309,150 @@
 		.cta-buttons {
 			justify-content: center;
 		}
+	}
+
+	.projects-section {
+		padding: 6rem 0;
+		background-color: #0f172a;
+	}
+
+	.section-title {
+		text-align: center;
+		font-size: 2.5rem;
+		color: var(--text-color);
+		margin-bottom: 3rem;
+	}
+
+	.projects-column {
+		display: flex;
+		flex-direction: column;
+		gap: 4rem;
+		max-width: 900px;
+		margin: 0 auto;
+	}
+
+	.project-card {
+		background: var(--card-bg);
+		border-radius: 15px;
+		overflow: hidden;
+		box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+		border: 1px solid rgba(255, 255, 255, 0.05);
+	}
+
+	.carousel-master {
+		position: relative;
+		background: #050811;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		overflow: hidden;
+		width: 100%;
+	}
+
+	.carousel-master.mobile {
+		height: 500px;
+	}
+
+	.carousel-master.desktop {
+		aspect-ratio: 16 / 9;
+	}
+
+	.image-container {
+		width: 100%;
+		height: 100%;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
+
+	.image-container img {
+		max-width: 100%;
+		max-height: 100%;
+		object-fit: contain;
+	}
+
+	.nav-btn {
+		position: absolute;
+		top: 50%;
+		transform: translateY(-50%);
+		background: rgba(0, 0, 0, 0.5);
+		color: var(--accent);
+		border: none;
+		font-size: 1.5rem;
+		width: 40px;
+		height: 40px;
+		cursor: pointer;
+		z-index: 10;
+		border-radius: 50%;
+		transition: all 0.3s ease;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+
+	.nav-btn:hover {
+		background: var(--accent);
+		color: #000;
+	}
+
+	.prev {
+		left: 15px;
+	}
+	.next {
+		right: 15px;
+	}
+
+	.dots {
+		position: absolute;
+		bottom: 15px;
+		display: flex;
+		gap: 8px;
+	}
+
+	.dot {
+		width: 8px;
+		height: 8px;
+		background: rgba(255, 255, 255, 0.3);
+		border-radius: 50%;
+		transition: 0.3s;
+	}
+
+	.dot.active {
+		background: var(--accent);
+		width: 18px;
+		border-radius: 10px;
+	}
+
+	.project-info {
+		padding: 2rem;
+	}
+
+	.project-info h3 {
+		color: var(--accent);
+		font-size: 1.5rem;
+		margin-bottom: 1rem;
+	}
+
+	.project-info p {
+		color: #cbd5e1;
+		margin-bottom: 2rem;
+	}
+
+	.btn-github {
+		display: inline-block;
+		background-color: transparent;
+		color: var(--text-color);
+		border: 2px solid #334155;
+		padding: 0.6rem 1.2rem;
+		border-radius: 5px;
+		text-decoration: none;
+		font-family: var(--font-mono);
+		font-weight: bold;
+		transition: all 0.3s ease;
+	}
+
+	.btn-github:hover {
+		border-color: var(--accent);
+		color: var(--accent);
 	}
 </style>
