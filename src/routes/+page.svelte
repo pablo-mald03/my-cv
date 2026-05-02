@@ -109,7 +109,7 @@
 				</p>
 				<div class="cta-buttons">
 					<button class="btn-primary" onclick={toggleModal}>Contáctame</button>
-					<a href="/cv-pablo.pdf" download class="btn-secondary">Descargar CV</a>
+					<!-- <a href="/cv-pablo.pdf" download class="btn-secondary">Descargar CV</a> -->
 				</div>
 			</div>
 		</div>
