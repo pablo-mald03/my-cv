@@ -2,15 +2,21 @@
 	import { fade } from 'svelte/transition';
 	import miFoto from '$lib/assets/ProfileMePablo.png';
 
+	import ModalContacto from './components/ModalContacto.svelte';
+
+    let showContact = $state(false);
+
+    const toggleModal = () => showContact = !showContact;
+
 	let name = 'Pablo';
 	let role = 'Estudiante de Ingenieria en Ciencias y Sistemas';
 	let location = 'Guatemala';
 
 	let misProyectos = $state([
-        {
+		{
 			titulo: 'Aplicación Creador de diagramas de Flujo',
 			descripcion:
-				"Aplicación Android que permite crear diagramas de flujo en base a instrucciones en pseudocodigo. Implementa principios de compiladores y permite visualizar los diagramas que son personalizables",
+				'Aplicación Android que permite crear diagramas de flujo en base a instrucciones en pseudocodigo. Implementa principios de compiladores y permite visualizar los diagramas que son personalizables',
 			tipo: 'mobile',
 			imagenes: [
 				'/proyectos/Flujo0.jpeg',
@@ -37,25 +43,41 @@
 				'/proyectos/PkmPic4.jpeg',
 				'/proyectos/PkmPic5.jpeg'
 			],
-			tecnologias: ['Kotlin', 'Java', 'Android SDK', 'API REST'],
+			tecnologias: ['Kotlin', 'Java', 'Android SDK', 'API REST', 'MySQL'],
 			repo: 'https://github.com/pablo-mald03/Proyecto-No1-Compi-1/',
 			index: 0
 		},
 		{
 			titulo: 'Aplicación de Cine',
-			descripcion: 'Aplicación web para gestion de cines. Implementando tecnologias de cliente servidor. Permite diferentes roles: usuarios, anunciantes, administradores. Y permite la compra de boletos',
+			descripcion:
+				'Aplicación web para gestion de cines. Implementando tecnologias de cliente servidor. Permite diferentes roles: usuarios, anunciantes, administradores. Y permite la compra de boletos',
 			tipo: 'desktop',
-			imagenes: ['/proyectos/CinemaPic0.png', '/proyectos/CinemaPic1.png', '/proyectos/CinemaPic2.png', '/proyectos/CinemaPic3.png', '/proyectos/CinemaPic4.png', '/proyectos/CinemaPic5.png' , '/proyectos/CinemaPic6.png'],
-			tecnologias: ['API REST', 'Java','TypeScript','MySQL', 'Angular'],
+			imagenes: [
+				'/proyectos/CinemaPic0.png',
+				'/proyectos/CinemaPic1.png',
+				'/proyectos/CinemaPic2.png',
+				'/proyectos/CinemaPic3.png',
+				'/proyectos/CinemaPic4.png',
+				'/proyectos/CinemaPic5.png',
+				'/proyectos/CinemaPic6.png'
+			],
+			tecnologias: ['API REST', 'Java', 'TypeScript', 'MySQL', 'Angular'],
 			repo: 'https://github.com/pablo-mald03/proyecto-No2-IPC2',
 			index: 0
 		},
 		{
 			titulo: 'Aplicación de analizadores Sintacticos',
-			descripcion: 'Aplicación web para aprender a crear analizadores sintacticos descendentes. Implementa tecnologias cliente servidor que permiten generar dinamicamente analizadores sintacticos descendentes y poder visualizar su comportamiento en analisis de cadenas de entrada',
+			descripcion:
+				'Aplicación web para aprender a crear analizadores sintacticos descendentes. Implementa tecnologias cliente servidor que permiten generar dinamicamente analizadores sintacticos descendentes y poder visualizar su comportamiento en analisis de cadenas de entrada',
 			tipo: 'desktop',
-			imagenes: ['/proyectos/WisonPic0.png', '/proyectos/WisonPic1.png', '/proyectos/WisonPic2.png', '/proyectos/WisonPic3.png', '/proyectos/WisonPic4.png'],
-			tecnologias: ['API REST', 'Java','JavaScript','MySQL', 'Svelte'],
+			imagenes: [
+				'/proyectos/WisonPic0.png',
+				'/proyectos/WisonPic1.png',
+				'/proyectos/WisonPic2.png',
+				'/proyectos/WisonPic3.png',
+				'/proyectos/WisonPic4.png'
+			],
+			tecnologias: ['API REST', 'Java', 'JavaScript', 'MySQL', 'Svelte'],
 			repo: 'https://github.com/pablo-mald03/Practica-No2-Compi-1',
 			index: 0
 		}
@@ -86,7 +108,7 @@
 					por mi cuenta :)
 				</p>
 				<div class="cta-buttons">
-					<a href="#contacto" class="btn-primary">Contáctame</a>
+					<button class="btn-primary" onclick={toggleModal}>Contáctame</button>
 					<a href="/cv-pablo.pdf" download class="btn-secondary">Descargar CV</a>
 				</div>
 			</div>
@@ -177,6 +199,8 @@
 		</div>
 	</div>
 </section>
+
+<ModalContacto show={showContact} email="pablomaldonadobs2603@gmail.com" onAceptar={toggleModal} />
 
 <style>
 	:global(body) {
@@ -295,6 +319,9 @@
 		border-radius: 5px;
 		text-decoration: none;
 		font-weight: bold;
+		border: none;
+		cursor: pointer;
+		font-size: 1rem;
 	}
 
 	.btn-secondary {
@@ -467,12 +494,12 @@
 		margin-bottom: 1rem;
 	}
 
-    .project-info .tags span {
-        font-size: 0.9rem;
-        padding: 0.2rem 0.6rem;
-        opacity: 0.9;
-        border-color: rgba(243, 166, 0, 0.3);
-    }
+	.project-info .tags span {
+		font-size: 0.9rem;
+		padding: 0.2rem 0.6rem;
+		opacity: 0.9;
+		border-color: rgba(243, 166, 0, 0.3);
+	}
 
 	.project-info p {
 		color: #cbd5e1;
