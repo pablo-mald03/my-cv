@@ -7,28 +7,56 @@
 	let location = 'Guatemala';
 
 	let misProyectos = $state([
+        {
+			titulo: 'Aplicación Creador de diagramas de Flujo',
+			descripcion:
+				"Aplicación Android que permite crear diagramas de flujo en base a instrucciones en pseudocodigo. Implementa principios de compiladores y permite visualizar los diagramas que son personalizables",
+			tipo: 'mobile',
+			imagenes: [
+				'/proyectos/Flujo0.jpeg',
+				'/proyectos/Flujo1.jpeg',
+				'/proyectos/Flujo2.jpeg',
+				'/proyectos/Flujo3.jpeg',
+				'/proyectos/Flujo4.jpeg',
+				'/proyectos/Flujo5.jpeg'
+			],
+			tecnologias: ['Kotlin', 'Java', 'Android SDK'],
+			repo: 'https://github.com/pablo-mald03/Practica-No1-Compi-1',
+			index: 0
+		},
 		{
-			titulo: 'App Creador de Formularios',
+			titulo: 'Aplicación Creador de Formularios',
 			descripcion:
 				"Aplicación Android que permite crear formularios desde un lenguaje de alto nivel. Aplicando principios de compiladores. Y conexion a API'S en servidores remotos",
 			tipo: 'mobile',
 			imagenes: [
-                '/proyectos/PkmPic0.jpeg',
+				'/proyectos/PkmPic0.jpeg',
 				'/proyectos/PkmPic1.jpeg',
 				'/proyectos/PkmPic2.jpeg',
 				'/proyectos/PkmPic3.jpeg',
 				'/proyectos/PkmPic4.jpeg',
 				'/proyectos/PkmPic5.jpeg'
 			],
+			tecnologias: ['Kotlin', 'Java', 'Android SDK', 'API REST'],
 			repo: 'https://github.com/pablo-mald03/Proyecto-No1-Compi-1/',
 			index: 0
 		},
 		{
-			titulo: 'Sistema de Gestion de produtos',
-			descripcion: 'PENDIENTE',
+			titulo: 'Aplicación de Cine',
+			descripcion: 'Aplicación web para gestion de cines. Implementando tecnologias de cliente servidor. Permite diferentes roles: usuarios, anunciantes, administradores. Y permite la compra de boletos',
 			tipo: 'desktop',
-			imagenes: ['/proyectos/desk1.jpg', '/proyectos/desk2.jpg'],
-			repo: 'https://github.com...',
+			imagenes: ['/proyectos/CinemaPic0.png', '/proyectos/CinemaPic1.png', '/proyectos/CinemaPic2.png', '/proyectos/CinemaPic3.png', '/proyectos/CinemaPic4.png', '/proyectos/CinemaPic5.png' , '/proyectos/CinemaPic6.png'],
+			tecnologias: ['API REST', 'Java','TypeScript','MySQL', 'Angular'],
+			repo: 'https://github.com/pablo-mald03/proyecto-No2-IPC2',
+			index: 0
+		},
+		{
+			titulo: 'Aplicación de analizadores Sintacticos',
+			descripcion: 'Aplicación web para aprender a crear analizadores sintacticos descendentes. Implementa tecnologias cliente servidor que permiten generar dinamicamente analizadores sintacticos descendentes y poder visualizar su comportamiento en analisis de cadenas de entrada',
+			tipo: 'desktop',
+			imagenes: ['/proyectos/WisonPic0.png', '/proyectos/WisonPic1.png', '/proyectos/WisonPic2.png', '/proyectos/WisonPic3.png', '/proyectos/WisonPic4.png'],
+			tecnologias: ['API REST', 'Java','JavaScript','MySQL', 'Svelte'],
+			repo: 'https://github.com/pablo-mald03/Practica-No2-Compi-1',
 			index: 0
 		}
 	]);
@@ -68,8 +96,7 @@
 
 <section id="experiencia" class="cv-info">
 	<div class="section-container">
-
-        <h2 class="section-title">Mis areas experimentadas</h2>
+		<h2 class="section-title">Mis areas experimentadas</h2>
 		<div class="cv-grid">
 			<div class="cv-card">
 				<h3>Educación</h3>
@@ -136,6 +163,13 @@
 					<div class="project-info">
 						<h3>{proyecto.titulo}</h3>
 						<p>{proyecto.descripcion}</p>
+
+						<div class="tags" style="margin-bottom: 1.5rem;">
+							{#each proyecto.tecnologias as tech}
+								<span>{tech}</span>
+							{/each}
+						</div>
+
 						<a href={proyecto.repo} target="_blank" class="btn-github">Ver GitHub</a>
 					</div>
 				</div>
@@ -150,30 +184,30 @@
 		color: var(--text-color);
 	}
 
-    .section-title {
-        font-family: var(--font-mono);
-        font-size: 2.2rem;
-        color: var(--accent); 
-        text-align: center;
-        margin-bottom: 4rem; 
-        position: relative;
-        text-transform: uppercase;
-    }
+	.section-title {
+		font-family: var(--font-mono);
+		font-size: 2.2rem;
+		color: var(--accent);
+		text-align: center;
+		margin-bottom: 4rem;
+		position: relative;
+		text-transform: uppercase;
+	}
 
-    .section-title::after {
-        content: '';
-        display: block;
-        width: 60px;
-        height: 4px;
-        background: var(--accent);
-        margin: 1rem auto 0;
-        border-radius: 2px;
-    }
+	.section-title::after {
+		content: '';
+		display: block;
+		width: 60px;
+		height: 4px;
+		background: var(--accent);
+		margin: 1rem auto 0;
+		border-radius: 2px;
+	}
 
-    .projects-section {
-        padding: 8rem 0; 
-        background-color: #0f172a;
-    }
+	.projects-section {
+		padding: 8rem 0;
+		background-color: #0f172a;
+	}
 
 	.section-container {
 		max-width: 1100px;
@@ -432,6 +466,13 @@
 		font-size: 1.5rem;
 		margin-bottom: 1rem;
 	}
+
+    .project-info .tags span {
+        font-size: 0.9rem;
+        padding: 0.2rem 0.6rem;
+        opacity: 0.9;
+        border-color: rgba(243, 166, 0, 0.3);
+    }
 
 	.project-info p {
 		color: #cbd5e1;
